@@ -23,6 +23,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "InkSelect1",
+                    "type": "Value",
+                    "id": "e0998c9d-3550-4d9f-bd5f-1ebf6f2ce301",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "InkSelect2",
+                    "type": "Button",
+                    "id": "7fa590fe-3942-445b-8232-7b1e4b126985",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InkSelect3",
+                    "type": "Button",
+                    "id": "efe1610d-b73b-4acf-818f-4c6a123e7e70",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -67,6 +94,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "IsDrawing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e0ce4d3-8919-4568-8608-cb356a998a0a",
+                    "path": "<Keyboard>/#(1)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "InkSelect1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "98295f7d-5d30-4e5d-92c7-a7b8b9e58ddb",
+                    "path": "<Keyboard>/#(2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "InkSelect2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2a19b3f2-b1a8-4d69-afca-a97b60c2a6d3",
+                    "path": "<Keyboard>/#(3)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InkSelect3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

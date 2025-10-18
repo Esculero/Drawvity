@@ -109,6 +109,33 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""InkSelect1"",
+                    ""type"": ""Value"",
+                    ""id"": ""e0998c9d-3550-4d9f-bd5f-1ebf6f2ce301"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""InkSelect2"",
+                    ""type"": ""Button"",
+                    ""id"": ""7fa590fe-3942-445b-8232-7b1e4b126985"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InkSelect3"",
+                    ""type"": ""Button"",
+                    ""id"": ""efe1610d-b73b-4acf-818f-4c6a123e7e70"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -153,6 +180,39 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""IsDrawing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e0ce4d3-8919-4568-8608-cb356a998a0a"",
+                    ""path"": ""<Keyboard>/#(1)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""InkSelect1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98295f7d-5d30-4e5d-92c7-a7b8b9e58ddb"",
+                    ""path"": ""<Keyboard>/#(2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""InkSelect2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a19b3f2-b1a8-4d69-afca-a97b60c2a6d3"",
+                    ""path"": ""<Keyboard>/#(3)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InkSelect3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -742,6 +802,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Draw = m_Player.FindAction("Draw", throwIfNotFound: true);
         m_Player_IsDrawing = m_Player.FindAction("IsDrawing", throwIfNotFound: true);
+        m_Player_InkSelect1 = m_Player.FindAction("InkSelect1", throwIfNotFound: true);
+        m_Player_InkSelect2 = m_Player.FindAction("InkSelect2", throwIfNotFound: true);
+        m_Player_InkSelect3 = m_Player.FindAction("InkSelect3", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -837,6 +900,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Draw;
     private readonly InputAction m_Player_IsDrawing;
+    private readonly InputAction m_Player_InkSelect1;
+    private readonly InputAction m_Player_InkSelect2;
+    private readonly InputAction m_Player_InkSelect3;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -856,6 +922,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/IsDrawing".
         /// </summary>
         public InputAction @IsDrawing => m_Wrapper.m_Player_IsDrawing;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/InkSelect1".
+        /// </summary>
+        public InputAction @InkSelect1 => m_Wrapper.m_Player_InkSelect1;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/InkSelect2".
+        /// </summary>
+        public InputAction @InkSelect2 => m_Wrapper.m_Player_InkSelect2;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/InkSelect3".
+        /// </summary>
+        public InputAction @InkSelect3 => m_Wrapper.m_Player_InkSelect3;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -888,6 +966,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @IsDrawing.started += instance.OnIsDrawing;
             @IsDrawing.performed += instance.OnIsDrawing;
             @IsDrawing.canceled += instance.OnIsDrawing;
+            @InkSelect1.started += instance.OnInkSelect1;
+            @InkSelect1.performed += instance.OnInkSelect1;
+            @InkSelect1.canceled += instance.OnInkSelect1;
+            @InkSelect2.started += instance.OnInkSelect2;
+            @InkSelect2.performed += instance.OnInkSelect2;
+            @InkSelect2.canceled += instance.OnInkSelect2;
+            @InkSelect3.started += instance.OnInkSelect3;
+            @InkSelect3.performed += instance.OnInkSelect3;
+            @InkSelect3.canceled += instance.OnInkSelect3;
         }
 
         /// <summary>
@@ -905,6 +992,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @IsDrawing.started -= instance.OnIsDrawing;
             @IsDrawing.performed -= instance.OnIsDrawing;
             @IsDrawing.canceled -= instance.OnIsDrawing;
+            @InkSelect1.started -= instance.OnInkSelect1;
+            @InkSelect1.performed -= instance.OnInkSelect1;
+            @InkSelect1.canceled -= instance.OnInkSelect1;
+            @InkSelect2.started -= instance.OnInkSelect2;
+            @InkSelect2.performed -= instance.OnInkSelect2;
+            @InkSelect2.canceled -= instance.OnInkSelect2;
+            @InkSelect3.started -= instance.OnInkSelect3;
+            @InkSelect3.performed -= instance.OnInkSelect3;
+            @InkSelect3.canceled -= instance.OnInkSelect3;
         }
 
         /// <summary>
@@ -1219,6 +1315,27 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnIsDrawing(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "InkSelect1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInkSelect1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "InkSelect2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInkSelect2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "InkSelect3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInkSelect3(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

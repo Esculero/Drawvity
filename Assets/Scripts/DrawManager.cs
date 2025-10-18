@@ -57,6 +57,24 @@ public class DrawManager : MonoBehaviour
             FinishDrawingLine();
         };
 
+        inputSystem.Player.InkSelect1.performed += context =>
+        {
+            SelectedInk = 0;
+            FinishDrawingLine();
+        };
+
+        inputSystem.Player.InkSelect2.performed += context =>
+        {
+            SelectedInk = 1;
+            FinishDrawingLine();
+        };
+
+        inputSystem.Player.InkSelect3.performed += context =>
+        {
+            SelectedInk = 2;
+            FinishDrawingLine();
+        };
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -68,20 +86,20 @@ public class DrawManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentLine != null)
+        if (currentLine != null)
         {
-            Debug.Log(InkPercentage[1]);
+            Debug.Log(InkPercentage[SelectedInk]);
             Vector3 CurrentPosition = Camera.main.ScreenToWorldPoint(drawPos);
             CurrentPosition.z = 0f;
 
-            float distance =  Vector3.Distance(CurrentPosition, PreviousPosition);
-            if (distance > MinDistance && InkPercentage[1] > 0)
+            float distance = Vector3.Distance(CurrentPosition, PreviousPosition);
+            if (distance > MinDistance && InkPercentage[SelectedInk] > 0)
             {
                 currentLine.positionCount++;
                 currentLine.SetPosition(currentLine.positionCount - 1, CurrentPosition);
                 PreviousPosition = CurrentPosition;
-                InkPercentage[1] -= PaintingCost * distance * Time.deltaTime;
-                
+                InkPercentage[SelectedInk] -= PaintingCost * distance * Time.deltaTime;
+
             }
         }
     }
