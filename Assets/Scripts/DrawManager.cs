@@ -5,8 +5,7 @@ using UnityEngine;
 public class DrawManager : MonoBehaviour
 {
     #region Input hook
-    // TODO - hook to InputManager when Andrei fucking does it, lazy ass piece of work
-    private InputSystem_Actions inputSystem = new();
+    private InputManager inputManager;
     private Vector2 drawPos;
     #endregion
 
@@ -26,44 +25,42 @@ public class DrawManager : MonoBehaviour
     [SerializeField]
     private float MinDistance = 0.1f;
     [SerializeField,Range(0.1f,0.2f)] private float Width = 0.1f;
-    
 
+
+    #endregion
+
+    #region Game State hooks
+
+    bool IsActive = true;
+
+    void OnGamePaused()
+    {
+        IsActive = false;
+    }
+
+    void OnGameStarted()
+    {
+        IsActive = true;
+    }
     #endregion
 
     void OnEnable()
     {
-        inputSystem = new();
-        inputSystem.Enable();
+        // hook into GameManager events
 
-        inputSystem.Player.Draw.performed +=
-            context =>
-            {
-                drawPos = context.ReadValue<Vector2>();
-            }; // linia asta citeste constant pozitia si o stocheaza in drawPos
 
-        inputSystem.Player.IsDrawing.started += Context =>
-        {
-            CreateLine();
-        };
-        inputSystem.Player.IsDrawing.canceled += Context =>
-        {
-            FinishDrawingLine();
-        };
+        // input events
+        inputManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<InputManager>();
 
-        // pe inputSystem.Player.IsDrawing.started trebuie gestionata desenarea unui nou obiect
-        // pe inputSystem.Player.IsDrawing.canceled trebuie gestionata finalizarea desenarii obiectului
+        inputManager.OnDrawPositionChanged += position => drawPos = position;
+        inputManager.OnDrawStarted += () => CreateLine();
+        inputManager.OnDrawEnded += () => FinishDrawingLine();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if(currentLine != null)
+        if(!IsActive) return;
+        if (currentLine != null)
         {
             Vector3 CurrentPosition = Camera.main.ScreenToWorldPoint(drawPos);
             CurrentPosition.z = 0f;
@@ -82,6 +79,8 @@ public class DrawManager : MonoBehaviour
 
     void CreateLine()
     {
+        if(!IsActive) return;
+        // TODO - create prefab for Line that contains a controller script and the needed components (LineRenderer, Collider, etc)
         GameObject newLine = new GameObject();
         currentLine = newLine.AddComponent<LineRenderer>();
 
@@ -101,6 +100,7 @@ public class DrawManager : MonoBehaviour
     
     void FinishDrawingLine()
     {
+        if(!IsActive) return;
         currentLine = null;
     }
 }
