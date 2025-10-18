@@ -62,11 +62,17 @@ public class DrawManager : MonoBehaviour
         inputManager.OnDrawPositionChanged += position => drawPos = position;
         inputManager.OnDrawStarted += () => CreateLine();
         inputManager.OnDrawEnded += () => FinishDrawingLine();
+        inputManager.OnInkTypeSelected += index =>
+        {
+            SelectedInk = index;
+            FinishDrawingLine();
+        }; 
     }
 
     void Update()
     {
-        if(!IsActive) return;
+        if (!IsActive) return;
+        
         if (currentLine != null)
         {
             Debug.Log(InkPercentage[SelectedInk]);
@@ -87,7 +93,12 @@ public class DrawManager : MonoBehaviour
 
     void CreateLine()
     {
-        if(!IsActive) return;
+        if (!IsActive) return;
+        
+        Vector3 CurrentPosition = Camera.main.ScreenToWorldPoint(drawPos);
+        CurrentPosition.z = 0f;
+        PreviousPosition = CurrentPosition;
+
         // TODO - create prefab for Line that contains a controller script and the needed components (LineRenderer, Collider, etc)
         GameObject newLine = new GameObject();
         currentLine = newLine.AddComponent<LineRenderer>();
