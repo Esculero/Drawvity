@@ -14,25 +14,20 @@ public class DrawManager : MonoBehaviour
     [SerializeField]
     private double[] InkPercentage = {100.0f, 100.0f, 100.0f };
     private int SelectedInk = 0;
+
+    [SerializeField]
+    private GameObject[] Lines;
     
     [SerializeField]
     private double PaintingCost = 1000.0f;
     #endregion
 
     #region Line creation
-    private LineRenderer[] lines;
-    MeshCollider newMeshCollider;
-
-    private LineRenderer currentLine;
+    private LineScript currentLine;
     private Vector3 PreviousPosition;
 
     [SerializeField]
     private float MinDistance = 0.1f;
-
-    [SerializeField, Range(0.1f, 0.2f)] 
-    private float Width = 0.2f;
-    
-
 
     #endregion
 
@@ -82,11 +77,9 @@ public class DrawManager : MonoBehaviour
             float distance = Vector3.Distance(CurrentPosition, PreviousPosition);
             if (distance > MinDistance && InkPercentage[SelectedInk] > 0)
             {
-                currentLine.positionCount++;
-                currentLine.SetPosition(currentLine.positionCount - 1, CurrentPosition);
+                currentLine.AddPoint(CurrentPosition);
                 PreviousPosition = CurrentPosition;
                 InkPercentage[SelectedInk] -= PaintingCost * distance * Time.deltaTime;
-
             }
         }
     }
@@ -99,30 +92,17 @@ public class DrawManager : MonoBehaviour
         CurrentPosition.z = 0f;
         PreviousPosition = CurrentPosition;
 
-        // TODO - create prefab for Line that contains a controller script and the needed components (LineRenderer, Collider, etc)
-        GameObject newLine = new GameObject();
-        currentLine = newLine.AddComponent<LineRenderer>();
-        // newMeshCollider = newLine.AddComponent<MeshCollider>();
-
-        // Mesh mesh = new Mesh();
-        // currentLine.BakeMesh(mesh, true);
-        // newMeshCollider.sharedMesh = mesh;
-
-        currentLine.positionCount = 1;
-        currentLine.startWidth = Width;
-        currentLine.endWidth = Width;
-
-
-        currentLine.SetPosition(0, CurrentPosition);
-
-        lines.Append(currentLine);
-
-        currentLine.transform.SetParent(this.transform);
+        GameObject newLine = GameObject.Instantiate(Lines[SelectedInk], this.transform);
+        currentLine = newLine.GetComponent<LineScript>();
+        currentLine.CreateLine(CurrentPosition);
+        currentLine.SetInkAmount(InkPercentage[SelectedInk]);
     }
     
     void FinishDrawingLine()
     {
-        if(!IsActive) return;
+        if (!IsActive) return;
+
+        currentLine?.SetInkAmount(currentLine.GetInk() - InkPercentage[SelectedInk]);
         currentLine = null;
     }
 }
