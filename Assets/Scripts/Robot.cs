@@ -8,6 +8,8 @@ public class Robot : MonoBehaviour
     private bool hasEnemy = true;
 
     [SerializeField] private float speed = 5f;
+    [SerializeField] private int currentInk = 10; // probably not gonna be a field for the robot, but we're lazy
+    [SerializeField] private int inkPowerup = 5; // probably not gonna be a field for the robot, but we're lazy
 
     void Awake()
     {
@@ -18,6 +20,7 @@ public class Robot : MonoBehaviour
     void Start()
     {
         Debug.Log($"Enemy is real: {hasEnemy}");
+        Debug.Log($"Current ink is now {currentInk}");
     }
 
     // Update is called once per frame
@@ -45,25 +48,17 @@ public class Robot : MonoBehaviour
 
         if (other.tag == "Finish")
         {
-            Debug.Log("Robot reached the level exit!");
-            shouldMove = false;
-            body.linearVelocity = Vector2.zero;
             MoveToNextLevel(other);
         }
 
         if (other.tag == "Enemy")
         {
-            if (hasEnemy)
-            {
-                Debug.Log("Robot hit an enemy! Stopping movement.");
-                Destroy(this.gameObject); // ???
-            }
-            else
-            {
-                Destroy(other.GetComponent<Rigidbody2D>());
-                Destroy(other.GetComponent<Collider2D>());
-                Debug.Log("Robot passed through the enemy safely.");
-            }
+            CollideWithEnemy(other);
+        }
+
+        if (other.tag == "InkPowerup")
+        {
+            CollideWithInkPowerup(other);
         }
 
         Debug.Log($"Robot collided with '{other.name}' at {contactPoint} - relativeVelocity={collision.relativeVelocity}");
@@ -71,8 +66,35 @@ public class Robot : MonoBehaviour
 
     void MoveToNextLevel(GameObject other)
     {
+        // stop moving
+        Debug.Log("Robot reached the level exit!");
+        //shouldMove = false;
+        //body.linearVelocity = Vector2.zero;
+        // destroy the elements
         Destroy(other);
         Destroy(this.gameObject);
         Debug.Log("Transitioning to the next level...");
+    }
+
+    void CollideWithEnemy(GameObject enemy)
+    {
+        if (hasEnemy)
+        {
+            Debug.Log("Robot hit an enemy! Stopping movement.");
+            Destroy(this.gameObject); // ???
+        }
+        else
+        {
+            Destroy(enemy.GetComponent<Rigidbody2D>());
+            Destroy(enemy.GetComponent<Collider2D>());
+            Debug.Log("Robot passed through the enemy safely.");
+        }
+    }
+
+    void CollideWithInkPowerup(GameObject powerup)
+    {
+        currentInk += inkPowerup;
+        Destroy(powerup);
+        Debug.Log($"Robot collected an ink powerup, current ink is now {currentInk}");
     }
 }
