@@ -1,15 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Robot : MonoBehaviour
 {
+    GameManager gameManager;
+
     private Rigidbody2D body;
     private bool shouldMove = false; // When true the robot moves right at 'speed'
     private bool hasEnemy = true;
 
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float speed = 50f;
     [SerializeField] private int currentInk = 10; // probably not gonna be a field for the robot, but we're lazy
     [SerializeField] private int inkPowerup = 5; // probably not gonna be a field for the robot, but we're lazy
+
 
     void Awake()
     {
@@ -21,21 +25,32 @@ public class Robot : MonoBehaviour
     {
         Debug.Log($"Enemy is real: {hasEnemy}");
         Debug.Log($"Current ink is now {currentInk}");
+
+
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
+        gameManager.OnRobotPausedToggled += () =>
+        {
+            shouldMove = !shouldMove;
+            Debug.Log($"Robot movement toggled: {shouldMove}");
+        };
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            shouldMove = !shouldMove;
-        }
+        if(Keyboard.current.rKey.wasPressedThisFrame)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
         if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             hasEnemy = !hasEnemy;
             Debug.Log($"Enemy is real: {hasEnemy}");
         }
-        body.linearVelocity = new Vector2(shouldMove ? speed : 0f, body.linearVelocity.y);
+
+        body.AddForce(new Vector2(shouldMove ? speed * Time.deltaTime : 0f, 0f), ForceMode2D.Force);
+
+        // body.linearVelocity = new Vector2(shouldMove ? speed : 0f, body.linearVelocity.y);
     }
 
     // Called when this Rigidbody2D collides with another Collider2D (non-trigger).
@@ -61,7 +76,19 @@ public class Robot : MonoBehaviour
             CollideWithInkPowerup(other);
         }
 
+        
+
         Debug.Log($"Robot collided with '{other.name}' at {contactPoint} - relativeVelocity={collision.relativeVelocity}");
+    }    
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        var other = collision.gameObject;
+
+        if(other.tag == "Ink")
+        {
+            body.gravityScale -= 0.3f * Time.deltaTime;
+        }
     }
 
     void MoveToNextLevel(GameObject other)
@@ -71,8 +98,8 @@ public class Robot : MonoBehaviour
         //shouldMove = false;
         //body.linearVelocity = Vector2.zero;
         // destroy the elements
-        Destroy(other);
-        Destroy(this.gameObject);
+        //Destroy(other);
+        //Destroy(this.gameObject);
         Debug.Log("Transitioning to the next level...");
     }
 
@@ -81,7 +108,7 @@ public class Robot : MonoBehaviour
         if (hasEnemy)
         {
             Debug.Log("Robot hit an enemy! Stopping movement.");
-            Destroy(this.gameObject); // ???
+            //Destroy(this.gameObject); // ???
         }
         else
         {
@@ -96,5 +123,11 @@ public class Robot : MonoBehaviour
         currentInk += inkPowerup;
         Debug.Log($"Robot collected {powerup.name}, current ink is now {currentInk}");
         Destroy(powerup);
+    }
+
+    void CollideWithInk(GameObject ink)
+    {
+        // Placeholder for ink collision logic
+        Debug.Log($"Robot collided with ink: {ink.name}");
     }
 }

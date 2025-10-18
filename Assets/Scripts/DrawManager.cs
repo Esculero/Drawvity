@@ -46,11 +46,9 @@ public class DrawManager : MonoBehaviour
     }
     #endregion
 
-    void OnEnable()
+
+    void Start()
     {
-        // hook into GameManager events
-
-
         // input events
         inputManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<InputManager>();
 
@@ -59,9 +57,9 @@ public class DrawManager : MonoBehaviour
         inputManager.OnDrawEnded += () => FinishDrawingLine();
         inputManager.OnInkTypeSelected += index =>
         {
-            SelectedInk = index;
             FinishDrawingLine();
-        }; 
+            SelectedInk = index;
+        };
     }
 
     void Update()
@@ -102,7 +100,7 @@ public class DrawManager : MonoBehaviour
     {
         if (!IsActive) return;
 
-        currentLine?.SetInkAmount(currentLine.GetInk() - InkPercentage[SelectedInk]);
+        currentLine?.FinishLine(InkPercentage[SelectedInk]);
         currentLine = null;
     }
 }

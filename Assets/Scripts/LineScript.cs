@@ -1,26 +1,37 @@
+using System.Linq;
 using UnityEngine;
 
 public class LineScript : MonoBehaviour
 {
+    private enum InkType
+    { 
+        GravityReduction,
+        InvertGravity,
+        ForwardForce
+    }
+
+    [SerializeField]
+    private InkType inkType;
+
+
     [SerializeField]
     private Color lineColor;
     [SerializeField]
     private double InkAmount;
+    
 
     [SerializeField, Range(0.1f, 0.2f)] 
     private float Width = 0.2f;
 
 
     private LineRenderer lineRenderer;
-
+    private EdgeCollider2D edgeCollider;
 
     public void CreateLine(Vector3 position)
     {
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.material.color = lineColor;
         lineRenderer.startColor = lineRenderer.endColor = lineColor;
-        lineRenderer.startWidth = Width;
-        lineRenderer.endWidth = Width;
+        lineRenderer.startWidth = lineRenderer.endWidth = Width;        
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, position);
     }
@@ -29,8 +40,18 @@ public class LineScript : MonoBehaviour
     {
 
         lineRenderer.positionCount++;
-        lineRenderer.SetPosition(lineRenderer.positionCount - 1, point);
+        lineRenderer.SetPosition(lineRenderer.positionCount - 1, point);        
+    }
 
+    public void FinishLine(double currentInkAmount)
+    {
+        InkAmount -= currentInkAmount; // store used ink
+
+        // generate collider points based on line renderer positions
+        Vector3[] positions;
+        lineRenderer.GetPositions(positions = new Vector3[lineRenderer.positionCount]);
+
+        edgeCollider.points = positions.Select(pos => new Vector2(pos.x, pos.y)).ToArray();
     }
 
     public void SetInkAmount(double ink)
@@ -45,14 +66,23 @@ public class LineScript : MonoBehaviour
 
     public void DeleteLine()
     {
-
         Destroy(this.gameObject);
     }
 
     void OnEnable()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        edgeCollider = GetComponent<EdgeCollider2D>();
     }
+
+
+    void OnStart()
+    {
+        if(lineRenderer.positionCount > 2)
+            FinishLine(0);
+    }
+
+    
 
     // Update is called once per frame
     void Update()

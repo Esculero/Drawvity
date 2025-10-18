@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 4284992327915327556}
   - component: {fileID: 5659397870810362391}
   - component: {fileID: 8500690116728341140}
+  - component: {fileID: -5693177496318957140}
   m_Layer: 0
   m_Name: Line_ink1
-  m_TagString: Untagged
+  m_TagString: Ink
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4722504340918242181}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.55022, y: 1.25509, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -155,5 +156,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6465cf7df3e7ac66f88bc6fcab2f7fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  lineColor: {r: 0.9622642, g: 0.50561285, b: 0.25872195, a: 0}
+  inkType: 0
+  lineColor: {r: 0.9622642, g: 0.50561285, b: 0.25872195, a: 1}
   InkAmount: 0
+  Width: 0.2
+--- !u!68 &-5693177496318957140
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4722504340918242181}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -2.05022, y: -1.25509}
+  - {x: -1.05022, y: -1.25509}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
