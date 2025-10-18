@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   inkType: 0
-  lineColor: {r: 0.9622642, g: 0.50561285, b: 0.25872195, a: 1}
+  lineColor: {r: 0.9622642, g: 0.50561285, b: 0.25872195, a: 0.3529412}
   InkAmount: 0
   Width: 0.2
 --- !u!68 &-5693177496318957140

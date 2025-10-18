@@ -60,6 +60,12 @@ public class DrawManager : MonoBehaviour
             FinishDrawingLine();
             SelectedInk = index;
         };
+
+        inputManager.OnErasePressed += () =>
+        {
+            if (currentLine != null) return; // cannot erase while drawing
+            EraseLine();           
+        };
     }
 
     void Update()
@@ -102,5 +108,25 @@ public class DrawManager : MonoBehaviour
 
         currentLine?.FinishLine(InkPercentage[SelectedInk]);
         currentLine = null;
+    }
+
+    void EraseLine()
+    {
+        // get all LineScript under the mouse position - LineScript is attached to an object with LineRenderer
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(drawPos);
+        Vector2 worldPos2D = new Vector2(worldPos.x, worldPos.y);
+
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(worldPos2D, 0.2f, Vector2.zero);
+
+        foreach (var hit in hits)
+        {
+            var line = hit.collider.gameObject.GetComponent<LineScript>();
+            if (line != null)
+            {
+                InkPercentage[(int)line.GetInkType()] += line.GetInk();
+                Destroy(line.gameObject);
+            }
+        }
+
     }
 }

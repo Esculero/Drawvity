@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8618489193861515512}
   - component: {fileID: 4286607735461994711}
   - component: {fileID: 434637974214804441}
+  - component: {fileID: 6045329133390362594}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -57,3 +58,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e3339669c337d40abd39158a9c6e05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+--- !u!114 &6045329133390362594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5423617924014719644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3467ed441b1dd54dad70883b21a39a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GravityManager
+  gravityScale: 1
+  defaultGravityScale: 1
+  gravityScaleReturnSpeed: 2
+  gravityDirection: {x: 0, y: -1}
+  defaultGravityDirection: {x: 0, y: -1}
+  gravityDirectionReturnSpeed: 2
+  playerRigidbody: {fileID: 0}

@@ -1,31 +1,77 @@
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LineScript : MonoBehaviour
 {
-    private enum InkType
+    public enum InkType
     { 
-        GravityReduction,
-        InvertGravity,
-        ForwardForce
+        GravityReduction = 0,
+        InvertGravity = 1,
+        RotateGravity90 = 2
     }
 
     [SerializeField]
     private InkType inkType;
 
-
     [SerializeField]
     private Color lineColor;
     [SerializeField]
-    private double InkAmount;
-    
+    private double InkAmount;    
 
     [SerializeField, Range(0.1f, 0.2f)] 
     private float Width = 0.2f;
 
-
     private LineRenderer lineRenderer;
     private EdgeCollider2D edgeCollider;
+
+    public GravityModifierDelegate gravityModifierFun
+    {
+        get
+        {
+            switch (inkType)
+            {
+                case InkType.GravityReduction:
+                    return (GravityParameters parameters) =>
+                    {
+                        parameters.gravityScale = Mathf.Max(0.0f, parameters.gravityScale - 0.1f);
+                        return parameters;
+                    };
+                case InkType.InvertGravity:
+                    return (GravityParameters parameters) =>
+                    {
+                        parameters.gravityDirection *= -1;
+                        return parameters;
+                    };
+                case InkType.RotateGravity90:
+                default:
+                    return (GravityParameters parameters) =>
+                    {
+                        parameters.gravityDirection = new Vector2(-parameters.gravityDirection.y, parameters.gravityDirection.x);                        
+                        return parameters;
+                    };
+            };
+        }
+    }
+
+
+    private ModifierMode gravityModifierMode
+    {
+        get
+        {
+            switch (inkType)
+            {
+                case InkType.GravityReduction:
+                    return ModifierMode.Continuous;
+                case InkType.InvertGravity:
+                case InkType.RotateGravity90:
+                default:
+                    return ModifierMode.Instantaneous;
+            };
+        }
+    }
+
+    private GravityModifier gravityModifier;
 
     public void CreateLine(Vector3 position)
     {
@@ -64,6 +110,11 @@ public class LineScript : MonoBehaviour
         return InkAmount;
     }
 
+    public InkType GetInkType()
+    {
+        return inkType;
+    }
+
     public void DeleteLine()
     {
         Destroy(this.gameObject);
@@ -75,18 +126,22 @@ public class LineScript : MonoBehaviour
         edgeCollider = GetComponent<EdgeCollider2D>();
     }
 
-
-    void OnStart()
+    void Start()
     {
-        if(lineRenderer.positionCount > 2)
+        if (lineRenderer.positionCount > 2)
             FinishLine(0);
     }
 
-    
-
-    // Update is called once per frame
-    void Update()
+    public GravityModifier GetModifier()
     {
-        
+        if(gravityModifier == null)
+            gravityModifier = new GravityModifier(gravityModifierFun, gravityModifierMode);
+
+        return gravityModifier;
+    }
+
+    public void RemoveGravityModifier()
+    {
+        gravityModifier = null;
     }
 }

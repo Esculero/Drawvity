@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class Robot : MonoBehaviour
 {
     GameManager gameManager;
+    GravityManager gravityManager;
 
     private Rigidbody2D body;
     private bool shouldMove = false; // When true the robot moves right at 'speed'
@@ -14,6 +15,10 @@ public class Robot : MonoBehaviour
     [SerializeField] private int currentInk = 10; // probably not gonna be a field for the robot, but we're lazy
     [SerializeField] private int inkPowerup = 5; // probably not gonna be a field for the robot, but we're lazy
 
+
+    [SerializeField]
+    private CircleCollider2D groundCheckCollider;
+    private bool isGrounded = false;
 
     void Awake()
     {
@@ -34,6 +39,8 @@ public class Robot : MonoBehaviour
             shouldMove = !shouldMove;
             Debug.Log($"Robot movement toggled: {shouldMove}");
         };
+
+        gravityManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GravityManager>();
     }
 
     // Update is called once per frame
@@ -46,11 +53,27 @@ public class Robot : MonoBehaviour
         {
             hasEnemy = !hasEnemy;
             Debug.Log($"Enemy is real: {hasEnemy}");
+        }        
+    }
+
+    private void FixedUpdate()
+    {
+        if (!shouldMove) return;
+        
+        if(groundCheckCollider != null)
+        {
+            isGrounded = groundCheckCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
+            if (!isGrounded)
+            {
+                Debug.Log("Robot is not grounded, skipping movement this frame.");
+                return;
+            }
         }
 
-        body.AddForce(new Vector2(shouldMove ? speed * Time.deltaTime : 0f, 0f), ForceMode2D.Force);
-
-        // body.linearVelocity = new Vector2(shouldMove ? speed : 0f, body.linearVelocity.y);
+        float moveSpeed = speed * Time.deltaTime;
+        Vector2 direction = transform.right;
+        body.AddForce(direction * moveSpeed, ForceMode2D.Force);
+        
     }
 
     // Called when this Rigidbody2D collides with another Collider2D (non-trigger).
@@ -79,15 +102,23 @@ public class Robot : MonoBehaviour
         
 
         Debug.Log($"Robot collided with '{other.name}' at {contactPoint} - relativeVelocity={collision.relativeVelocity}");
-    }    
+    }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         var other = collision.gameObject;
-
-        if(other.tag == "Ink")
+        if (other.tag == "Ink")
         {
-            body.gravityScale -= 0.3f * Time.deltaTime;
+            CollideWithInk(other);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        var other = collision.gameObject;
+        if (other.tag == "Ink")
+        {
+            ExitInkCollision(other);
         }
     }
 
@@ -127,7 +158,20 @@ public class Robot : MonoBehaviour
 
     void CollideWithInk(GameObject ink)
     {
-        // Placeholder for ink collision logic
+        LineScript lineScript = ink.GetComponent<LineScript>();
+
+        gravityManager.AddModifier(lineScript.GetModifier());        
+
         Debug.Log($"Robot collided with ink: {ink.name}");
+    }
+
+    void ExitInkCollision(GameObject ink)
+    {
+        LineScript lineScript = ink.GetComponent<LineScript>();
+
+        gravityManager.RemoveModifier(lineScript.GetModifier());
+        lineScript.RemoveGravityModifier();
+
+        Debug.Log("Robot exited ink collision.");
     }
 }
