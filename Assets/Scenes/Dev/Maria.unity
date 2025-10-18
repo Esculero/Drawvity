@@ -256,6 +256,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &527100838
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.016
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467732085401356412, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_Name
+      value: Green InkPowerup
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755969694315526249, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755969694315526249, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_Color.g
+      value: 0.3921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755969694315526249, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
 --- !u!1 &527133807
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,6 +736,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1660933786
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629287215350557498, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467732085401356412, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_Name
+      value: Purple InkPowerup
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755969694315526249, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755969694315526249, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_Color.g
+      value: 0.1960784
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755969694315526249, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
 --- !u!1 &1790587244
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,7 +992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3467732085401356412, guid: 618e68ebd1c39cf4eba5477ec96e1bd1, type: 3}
       propertyPath: m_Name
-      value: InkPowerup
+      value: Blue InkPowerup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1045,3 +1183,5 @@ SceneRoots:
   - {fileID: 3231206533254405621}
   - {fileID: 3774478950782397250}
   - {fileID: 1823716184468561211}
+  - {fileID: 1660933786}
+  - {fileID: 527100838}

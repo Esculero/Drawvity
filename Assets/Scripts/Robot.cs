@@ -94,7 +94,7 @@ public class Robot : MonoBehaviour
     void CollideWithInkPowerup(GameObject powerup)
     {
         currentInk += inkPowerup;
+        Debug.Log($"Robot collected {powerup.name}, current ink is now {currentInk}");
         Destroy(powerup);
-        Debug.Log($"Robot collected an ink powerup, current ink is now {currentInk}");
     }
 }
