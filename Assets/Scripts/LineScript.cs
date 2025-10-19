@@ -17,7 +17,7 @@ public class LineScript : MonoBehaviour
     [SerializeField]
     private Color lineColor;
     [SerializeField]
-    private double InkAmount;    
+    private float InkAmount;    
 
     [SerializeField, Range(0.1f, 0.2f)] 
     private float Width = 0.2f;
@@ -89,7 +89,7 @@ public class LineScript : MonoBehaviour
         lineRenderer.SetPosition(lineRenderer.positionCount - 1, point);        
     }
 
-    public void FinishLine(double currentInkAmount)
+    public void FinishLine(float currentInkAmount)
     {
         InkAmount -= currentInkAmount; // store used ink
 
@@ -100,12 +100,12 @@ public class LineScript : MonoBehaviour
         edgeCollider.points = positions.Select(pos => new Vector2(pos.x, pos.y)).ToArray();
     }
 
-    public void SetInkAmount(double ink)
+    public void SetInkAmount(float ink)
     {
         InkAmount = ink;
     }
 
-    public double GetInk()
+    public float GetInk()
     {
         return InkAmount;
     }

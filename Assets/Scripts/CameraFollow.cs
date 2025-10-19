@@ -12,6 +12,9 @@ public class CameraFollow : MonoBehaviour
     private Vector2 minBounds;
 
     [SerializeField]
+    private Vector2 maxBounds;
+
+    [SerializeField]
     private float smoothSpeed = 0.125f;
 
     void Start()
@@ -40,8 +43,12 @@ public class CameraFollow : MonoBehaviour
             playerTransform.position.y + offset.y,
             transform.position.z);
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+
         smoothedPosition.x = Mathf.Max(smoothedPosition.x, minBounds.x);
         smoothedPosition.y = Mathf.Max(smoothedPosition.y, minBounds.y);
+
+        smoothedPosition.x = Mathf.Min(smoothedPosition.x, maxBounds.x);
+        smoothedPosition.y = Mathf.Min(smoothedPosition.y, maxBounds.y);
 
         transform.position = smoothedPosition;
     }

@@ -9,17 +9,31 @@ public class GameManager : MonoBehaviour
     // public LevelManager levelManager;
 
     // Events for game state changes
-    public event Action OnGameStarted;
-    public event Action OnGamePaused;
-    public event Action OnGameResumed;
-    public event Action OnGameEnded;
+    public event Action GameStarted;
+    public event Action GamePaused;
+    public event Action GameResumed;
+    public event Action GameEnded;
 
-    public event Action OnLevelCompleted;
-    public event Action OnLevelFailed;
+    public event Action LevelWon;
+    public event Action LevelFailed;
 
-    public event Action OnRobotPausedToggled;
+    public event Action PauseRobotToggled;
 
     bool isGamePaused = false;
+    bool isLevelFinished = false;
+
+    private void Awake()
+    {
+        // ensure that there is only one GameManager in the scene
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -29,42 +43,53 @@ public class GameManager : MonoBehaviour
         inputManager.OnRobotPausePressed += ToggleRobotPause;
     }
 
-    void StartGame()
+    public void StartGame()
     {
-        OnGameStarted?.Invoke();
+        GameStarted?.Invoke();
     }
-    void EndGame()
+    public void EndGame()
     {
-        OnGameEnded?.Invoke();
+        GameEnded?.Invoke();
     }
 
-    void ToggleGamePause()
+    public void ToggleGamePause()
     {
+        if (isLevelFinished) return;
+
         switch(isGamePaused)
         {
             case true:
-                OnGameResumed?.Invoke();
+                GameResumed?.Invoke();
                 isGamePaused = false;
                 break;
             case false:
-                OnGamePaused?.Invoke();
+                GamePaused?.Invoke();
                 isGamePaused = true;
                 break;
         }
     }
 
-    void FailLevel()
+    public void ToggleRobot()
     {
-        OnLevelFailed?.Invoke();
+        PauseRobotToggled?.Invoke();
     }
 
-    void WinLevel()
+    public void FailLevel()
     {
-        OnLevelCompleted?.Invoke();
+        isLevelFinished = true;
+        LevelFailed?.Invoke();
+    }
+
+    public void WinLevel()
+    {
+        isLevelFinished = true;
+        LevelWon?.Invoke();
     }
 
     void ToggleRobotPause()
     {
-        OnRobotPausedToggled?.Invoke();
+        if(isLevelFinished || isGamePaused) return;
+
+        PauseRobotToggled?.Invoke();
     }
 }
