@@ -35,6 +35,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        // ensure that there is only one GameManager in the scene
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     void Start()
     {
         inputManager = GetComponent<InputManager>();

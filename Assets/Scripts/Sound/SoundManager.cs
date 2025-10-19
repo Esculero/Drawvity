@@ -24,9 +24,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     private AudioMixer audioMixer;
 
-    [SerializeField]
-    private GameManager gameManager;
-
     public float BGMVolume
     {
         get { return bgmVolume; }
@@ -96,27 +93,6 @@ public class SoundManager : MonoBehaviour
                 break;
             }
         }
-
-        gameManager = GetComponent<GameManager>();
-        gameManager.GamePaused += () =>
-        {
-            ToggleLowpass(true);
-        };
-
-        gameManager.GameResumed += () =>
-        {
-            ToggleLowpass(false);
-        };
-
-        gameManager.LevelFailed += () =>
-        {
-            ToggleLowpass(true);
-        };
-
-        gameManager.LevelWon += () =>
-        {
-            ToggleLowpass(true);
-        };
     }
 
     public void playBgm(string key)
@@ -149,15 +125,17 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void ToggleLowpass(bool active)
+    public void ToggleLowpass()
     {
-        if (!active)
+        float currentCutoff;
+        audioMixer.GetFloat("BGMLowpassCutoff", out currentCutoff);
+        if (currentCutoff < 22000f)
         {
-            audioMixer.SetFloat("lowpassCutoffFreqBGM", 22000f); // disable lowpass
+            audioMixer.SetFloat("BGMLowpassCutoff", 22000f); // disable lowpass
         }
         else
         {
-            audioMixer.SetFloat("lowpassCutoffFreqBGM", 500f); // enable lowpass
+            audioMixer.SetFloat("BGMLowpassCutoff", 500f); // enable lowpass
         }
     }
 }
