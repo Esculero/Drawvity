@@ -56,15 +56,18 @@ public class GravityManager : MonoBehaviour
         playerRigidbody.AddForce(gravityParameters.gravityDirection * gravityParameters.gravityScale * 9.81f,
             ForceMode2D.Force);
 
+        if(!playerRigidbody.gameObject.GetComponent<Robot>().IsGrounded)
+        {
+            // get player's "down"
+            Vector2 playerDown = -playerRigidbody.transform.up;
 
-        // get player's "down"
-        Vector2 playerDown = -playerRigidbody.transform.up;
+            // rotate player to align with gravity direction
+            float angle = Vector2.SignedAngle(playerDown, gravityParameters.gravityDirection);
 
-        // rotate player to align with gravity direction
-        float angle = Vector2.SignedAngle(playerDown, gravityParameters.gravityDirection);
+            // smoothly rotate rb to align with gravity direction
+            playerRigidbody.MoveRotation(playerRigidbody.rotation + angle * 0.1f);            
+        }
 
-        // smoothly rotate rb to align with gravity direction
-        playerRigidbody.MoveRotation(playerRigidbody.rotation + angle * 0.1f);
     }
 
     public void AddModifier(GravityModifier gravityModifier)

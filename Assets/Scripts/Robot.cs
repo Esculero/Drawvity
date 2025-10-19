@@ -20,6 +20,8 @@ public class Robot : MonoBehaviour
     private CircleCollider2D groundCheckCollider;
     private bool isGrounded = false;
 
+    public bool IsGrounded => isGrounded;
+
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
