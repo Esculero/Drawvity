@@ -24,9 +24,22 @@ public class GravityManager : MonoBehaviour
     private List<GravityModifier> currentModifiers;
     private GravityModifier defaultModifier;
 
+    bool shouldBeActive = true;
+
+    [SerializeField]
+    private GameManager gameManager;
+
     void Start()
     {
-        if(playerRigidbody == null)
+        gameManager = gameManager ?? GetComponent<GameManager>();
+        gameManager.GamePaused += () => shouldBeActive = false;
+        gameManager.GameResumed += () => shouldBeActive = true;
+
+        gameManager.GameEnded += () => shouldBeActive = false;
+        gameManager.LevelFailed += () => shouldBeActive = false;
+        gameManager.LevelWon += () => shouldBeActive = false;
+
+        if (playerRigidbody == null)
         {
             playerRigidbody = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Rigidbody2D>() ?? null;
             if(playerRigidbody == null)
@@ -51,6 +64,8 @@ public class GravityManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!shouldBeActive) return;
+
         foreach (var modifier in currentModifiers)
             gravityParameters = modifier.Invoke(gravityParameters) ?? gravityParameters;
 

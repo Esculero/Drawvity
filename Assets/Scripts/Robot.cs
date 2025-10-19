@@ -36,7 +36,7 @@ public class Robot : MonoBehaviour
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
-        gameManager.OnRobotPausedToggled += () =>
+        gameManager.PauseRobotToggled += () =>
         {
             shouldMove = !shouldMove;
             Debug.Log($"Robot movement toggled: {shouldMove}");
@@ -86,22 +86,15 @@ public class Robot : MonoBehaviour
         if (collision.contactCount > 0)
             contactPoint = collision.GetContact(0).point;
 
-        if (other.tag == "Finish")
+        if (other.tag == "InkPowerup")
         {
-            MoveToNextLevel(other);
+            CollideWithInkPowerup(other);
         }
 
         if (other.tag == "Enemy")
         {
             CollideWithEnemy(other);
         }
-
-        if (other.tag == "InkPowerup")
-        {
-            CollideWithInkPowerup(other);
-        }
-
-        
 
         Debug.Log($"Robot collided with '{other.name}' at {contactPoint} - relativeVelocity={collision.relativeVelocity}");
     }
@@ -113,6 +106,12 @@ public class Robot : MonoBehaviour
         {
             CollideWithInk(other);
         }
+
+        if (other.tag == "Finish")
+        {
+            MoveToNextLevel(other);
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -128,11 +127,9 @@ public class Robot : MonoBehaviour
     {
         // stop moving
         Debug.Log("Robot reached the level exit!");
-        //shouldMove = false;
-        //body.linearVelocity = Vector2.zero;
-        // destroy the elements
-        //Destroy(other);
-        //Destroy(this.gameObject);
+
+        gameManager.WinLevel();
+
         Debug.Log("Transitioning to the next level...");
     }
 
@@ -141,7 +138,8 @@ public class Robot : MonoBehaviour
         if (hasEnemy)
         {
             Debug.Log("Robot hit an enemy! Stopping movement.");
-            //Destroy(this.gameObject); // ???
+            gameManager.FailLevel();
+            GameObject.Destroy(this.gameObject);
         }
         else
         {

@@ -72,13 +72,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GravityManager
   gravityParameters:
-    gravityScale: 0
-    gravityDirection: {x: 0, y: 0}
+    gravityScale: 1
+    gravityDirection: {x: 0, y: -1}
   defaultGravityParameters:
-    gravityScale: 0
-    gravityDirection: {x: 0, y: 0}
+    gravityScale: 1
+    gravityDirection: {x: 0, y: -1}
   gravityScaleReturnSpeed: 2
-  gravityDirectionReturnSpeed: 2
+  gravityDirectionReturnSpeed: 1
   playerRigidbody: {fileID: 0}
 --- !u!114 &6741672362494217339
 MonoBehaviour:
@@ -104,3 +104,4 @@ MonoBehaviour:
   - name: creditsBGM
     audioClip: {fileID: 8300000, guid: 90c5408968949544ab3ebc63145d0443, type: 3}
   sfxClips: []
+  audioMixer: {fileID: 24100000, guid: 09ec5d44fe699954c8623b5f091fa2a5, type: 2}
