@@ -84,12 +84,7 @@ public class Robot : MonoBehaviour
         var other = collision.gameObject;
         Vector2 contactPoint = Vector2.zero;
         if (collision.contactCount > 0)
-            contactPoint = collision.GetContact(0).point;
-
-        if (other.tag == "Finish")
-        {
-            MoveToNextLevel(other);
-        }
+            contactPoint = collision.GetContact(0).point;        
 
         if (other.tag == "Enemy")
         {
@@ -113,6 +108,10 @@ public class Robot : MonoBehaviour
         {
             CollideWithInk(other);
         }
+        if (other.tag == "Finish")
+        {
+            MoveToNextLevel(other);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -128,11 +127,7 @@ public class Robot : MonoBehaviour
     {
         // stop moving
         Debug.Log("Robot reached the level exit!");
-        //shouldMove = false;
-        //body.linearVelocity = Vector2.zero;
-        // destroy the elements
-        //Destroy(other);
-        //Destroy(this.gameObject);
+        // TODO - GameManager, toggle next level event
         Debug.Log("Transitioning to the next level...");
     }
 
@@ -141,6 +136,8 @@ public class Robot : MonoBehaviour
         if (hasEnemy)
         {
             Debug.Log("Robot hit an enemy! Stopping movement.");
+            // TODO - GameManager, toggle death event
+            
             //Destroy(this.gameObject); // ???
         }
         else
