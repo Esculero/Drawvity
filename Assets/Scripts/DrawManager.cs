@@ -72,7 +72,7 @@ public class DrawManager : MonoBehaviour
         };
 
 
-        // gui
+        // guis
         guiScript = GameObject.Find("GUI").GetComponent<GUIScript>();
 
         // game state events

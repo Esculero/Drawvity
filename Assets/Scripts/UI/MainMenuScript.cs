@@ -21,7 +21,6 @@ public class MainMenuScript : MonoBehaviour
     private SoundManager soundManager;
 
     bool isOptionsActive = false;
-    bool isCreditsActive = false;
 
 
     void Start()
@@ -45,7 +44,7 @@ public class MainMenuScript : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("Start Game");
-        SceneManager.LoadScene("Level0"); // load first level
+        SceneManager.LoadScene("Intro");
     }
 
     public void QuitGame()
