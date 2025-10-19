@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9e4ef147b5ae4f40808db010e10be56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
-  playerTransform: {fileID: 0}
+  playerTransform: {fileID: 1905600528}
   offset: {x: 5, y: 2.5}
   minBounds: {x: 0, y: 0}
   smoothSpeed: 0.5
@@ -30965,7 +30965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6209450285279784525, guid: 5bd453ba7c1d1cc4fb42dc2192273418, type: 3}
       propertyPath: speed
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8319939017971917584, guid: 5bd453ba7c1d1cc4fb42dc2192273418, type: 3}
       propertyPath: m_AngularDamping
@@ -30979,6 +30979,11 @@ PrefabInstance:
 --- !u!50 &1905600527 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 8319939017971917584, guid: 5bd453ba7c1d1cc4fb42dc2192273418, type: 3}
+  m_PrefabInstance: {fileID: 1905600526}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1905600528 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3766470091805052746, guid: 5bd453ba7c1d1cc4fb42dc2192273418, type: 3}
   m_PrefabInstance: {fileID: 1905600526}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2009749608
@@ -31163,7 +31168,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 6
-      m_TileSpriteIndex: 7
+      m_TileSpriteIndex: 9
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -31173,7 +31178,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 6
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -31224,14 +31229,14 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 1710630452, guid: a922773008c0d47e78d03fad863b0057, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 1486109300, guid: a922773008c0d47e78d03fad863b0057, type: 3}
-  - m_RefCount: 1
     m_Data: {fileID: -2119823875, guid: a922773008c0d47e78d03fad863b0057, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 1486109300, guid: a922773008c0d47e78d03fad863b0057, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 3
     m_Data:

@@ -472,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6209450285279784525, guid: 5bd453ba7c1d1cc4fb42dc2192273418, type: 3}
       propertyPath: speed
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8319939017971917584, guid: 5bd453ba7c1d1cc4fb42dc2192273418, type: 3}
       propertyPath: m_AngularDamping
@@ -483,6 +483,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bd453ba7c1d1cc4fb42dc2192273418, type: 3}
+--- !u!4 &823156169 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3766470091805052746, guid: 5bd453ba7c1d1cc4fb42dc2192273418, type: 3}
+  m_PrefabInstance: {fileID: 823156168}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &834747533
 GameObject:
   m_ObjectHideFlags: 0
@@ -51493,7 +51498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9e4ef147b5ae4f40808db010e10be56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
-  playerTransform: {fileID: 0}
+  playerTransform: {fileID: 823156169}
   offset: {x: 5, y: 2.5}
   minBounds: {x: 0, y: 0}
   smoothSpeed: 0.5
