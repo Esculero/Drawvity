@@ -35,6 +35,12 @@ public class GameManager : MonoBehaviour
         inputManager.OnRobotPausePressed += ToggleRobotPause;
     }
 
+    private void OnDestroy()
+    {
+        inputManager.OnGamePausePressed -= ToggleGamePause;
+        inputManager.OnRobotPausePressed -= ToggleRobotPause;
+    }
+
     public void StartGame()
     {
         GameStarted?.Invoke();

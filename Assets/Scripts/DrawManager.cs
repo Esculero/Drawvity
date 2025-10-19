@@ -59,17 +59,14 @@ public class DrawManager : MonoBehaviour
         // input events
         inputManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<InputManager>();
 
-        inputManager.OnDrawPositionChanged += position => drawPos = position;
-        inputManager.OnDrawStarted += () => CreateLine();
-        inputManager.OnDrawEnded += () => FinishDrawingLine();
+        inputManager.OnDrawPositionChanged += OnPositionChanged;
+
+        inputManager.OnDrawStarted += CreateLine;
+        inputManager.OnDrawEnded += FinishDrawingLine;
 
         inputManager.OnInkTypeSelected += ChangeInk;
 
-        inputManager.OnErasePressed += () =>
-        {
-            if (currentLine != null) return; // cannot erase while drawing
-            EraseLine();           
-        };
+        inputManager.OnErasePressed += EraseLine;
 
 
         // guis
@@ -82,6 +79,20 @@ public class DrawManager : MonoBehaviour
         gameManager.LevelWon += OnGamePaused;
         gameManager.GameResumed += OnGameResumed;
         gameManager.GameStarted += OnGameResumed;
+    }
+
+    private void OnDestroy()
+    {
+        inputManager.OnDrawPositionChanged -= OnPositionChanged;
+        inputManager.OnDrawStarted -= CreateLine;
+        inputManager.OnDrawEnded -= FinishDrawingLine;
+        inputManager.OnInkTypeSelected -= ChangeInk;
+        inputManager.OnErasePressed -= EraseLine;
+        gameManager.GamePaused -= OnGamePaused;
+        gameManager.LevelFailed -= OnGamePaused;
+        gameManager.LevelWon -= OnGamePaused;
+        gameManager.GameResumed -= OnGameResumed;
+        gameManager.GameStarted -= OnGameResumed;
     }
 
     void Update()
@@ -109,6 +120,11 @@ public class DrawManager : MonoBehaviour
                 OnInkChanged?.Invoke(SelectedInk, InkPercentage[SelectedInk]);
             }
         }
+    }
+
+    public void OnPositionChanged(Vector2 newPos)
+    {
+        drawPos = newPos;
     }
 
     public void ChangeInk(int index)
@@ -145,6 +161,8 @@ public class DrawManager : MonoBehaviour
 
     void EraseLine()
     {
+        if (currentLine != null) return; // cannot erase while drawing
+
         // get all LineScript under the mouse position - LineScript is attached to an object with LineRenderer
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(drawPos);
         Vector2 worldPos2D = new Vector2(worldPos.x, worldPos.y);

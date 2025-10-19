@@ -149,10 +149,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 986116754}
   - {fileID: 1085684412}
   - {fileID: 1063400414}
   - {fileID: 1701656903}
+  - {fileID: 986116754}
   m_Father: {fileID: 1497455180}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -391,12 +391,13 @@ MonoBehaviour:
   m_text: "Welcome, Test Subject! You\u2019ve been selected to operate the GraviPEN
     mk1: that\u2019s Gravity Portable Enhancement iNstrument, for the acronyms department.\n\nYour
     task: guide our autonomous test unit to the goal using the wonders of controlled
-    gravitational chaos.\n\nOrange: removes gravity entirely. Don\u2019t ask where
-    it goes.\n\nGreen: flips gravity. Up is down, down is up. You\u2019ll get used
-    to it.\n\nBlue: rotates gravity 90\xB0 counter-clockwise. Perfect for sideways
-    engineers.\n\nLeft-click to draw. Right-click to erase and reclaim your precious
-    ink.\nChange pen modes with 1-2-3 or click the pen.\nToggle the robot with Space
-    or the Run button.\nEsc pauses testing (or your sanity).\n\nRemember: the robot
+    gravitational chaos.\n\n<color=#f58142>Orange</color>: removes gravity entirely.
+    Don\u2019t ask where it goes.\n\n<color=#12ff58>Green</color>: flips gravity.
+    Up is down, down is up. You\u2019ll get used to it.\n\n<color=#006fff>Blue</color>:
+    rotates gravity 90\xB0 counter-clockwise. Perfect for sideways engineers.\n\n<b>Left-click</b>
+    to draw. <b>Right-click</b> to erase and reclaim your precious ink.\nChange pen
+    modes with 1-2-3 or click the pen.\nToggle the robot with <b>SPACE</b> or the
+    Run button.\n<b>ESC</b> pauses testing (or your sanity).\n\nRemember: the robot
     never stops moving forward.\nIf it reaches the end - great!\nIf it doesn\u2019t\u2026
     congratulations, you\u2019ve discovered a new kind of gravity failure."
   m_isRightToLeft: 0
@@ -534,7 +535,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u201CIf it falls, flips, or flies \u2014 it\u2019s probably working.\u201D"
+  m_text: "\u201CIf it falls, flips, or flies \u2014 it\u2019s   <i>probably</i>  
+    working.\u201D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aa7ed88615a29e0428a92006670b9d17, type: 2}
   m_sharedMaterial: {fileID: -5116488096202235196, guid: aa7ed88615a29e0428a92006670b9d17, type: 2}

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
+using System;
 using static LineScript;
 
 public class GravityManager : MonoBehaviour
@@ -32,12 +33,12 @@ public class GravityManager : MonoBehaviour
     void Start()
     {
         gameManager = gameManager ?? GetComponent<GameManager>();
-        gameManager.GamePaused += () => shouldBeActive = false;
-        gameManager.GameResumed += () => shouldBeActive = true;
+        gameManager.GamePaused += MyDisable;
+        gameManager.GameResumed += MyEnable;
 
-        gameManager.GameEnded += () => shouldBeActive = false;
-        gameManager.LevelFailed += () => shouldBeActive = false;
-        gameManager.LevelWon += () => shouldBeActive = false;
+        gameManager.GameEnded += MyDisable;
+        gameManager.LevelFailed += MyDisable;
+        gameManager.LevelWon += MyDisable;
 
         if (playerRigidbody == null)
         {
@@ -60,6 +61,28 @@ public class GravityManager : MonoBehaviour
                 return param;
             },
             ModifierMode.Continuous);
+    }
+
+    private void OnDestroy()
+    {
+        if (gameManager != null)
+        {
+            gameManager.GamePaused -= MyDisable;
+            gameManager.GameResumed -= MyEnable;
+            gameManager.GameEnded -= MyDisable;
+            gameManager.LevelFailed -= MyDisable;
+            gameManager.LevelWon -= MyDisable;
+        }
+    }
+    
+    void MyDisable()
+    {
+        shouldBeActive = false;
+    }
+
+    void MyEnable()
+    {
+        shouldBeActive = true;
     }
 
     void FixedUpdate()

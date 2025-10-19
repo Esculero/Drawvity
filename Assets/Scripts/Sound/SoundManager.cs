@@ -98,25 +98,24 @@ public class SoundManager : MonoBehaviour
         }
 
         gameManager = GetComponent<GameManager>();
-        gameManager.GamePaused += () =>
-        {
-            ToggleLowpass(true);
-        };
+        gameManager.GamePaused += ToggleLowpassOn;
 
-        gameManager.GameResumed += () =>
-        {
-            ToggleLowpass(false);
-        };
+        gameManager.GameResumed += ToggleLowpassOff;
 
-        gameManager.LevelFailed += () =>
-        {
-            ToggleLowpass(true);
-        };
+        gameManager.LevelFailed += ToggleLowpassOn;
 
-        gameManager.LevelWon += () =>
+        gameManager.LevelWon += ToggleLowpassOn;
+    }
+
+    private void OnDestroy()
+    {
+        if (gameManager != null)
         {
-            ToggleLowpass(true);
-        };
+            gameManager.GamePaused -= ToggleLowpassOn;
+            gameManager.GameResumed -= ToggleLowpassOff;
+            gameManager.LevelFailed -= ToggleLowpassOn;
+            gameManager.LevelWon -= ToggleLowpassOn;
+        }
     }
 
     public void playBgm(string key)
@@ -147,6 +146,16 @@ public class SoundManager : MonoBehaviour
             }
             sfxSource.PlayOneShot(clip);
         }
+    }
+
+    public void ToggleLowpassOn()
+    {
+        ToggleLowpass(true);
+    }
+
+    public void ToggleLowpassOff()
+    {
+        ToggleLowpass(false);
     }
 
     public void ToggleLowpass(bool active)

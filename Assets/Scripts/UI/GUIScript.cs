@@ -56,6 +56,15 @@ public class GUIScript : MonoBehaviour
         gameManager.LevelWon += OnLevelWin;
     }
 
+    void OnDestroy()
+    {
+        drawManager.OnInkChanged -= UpdateInkDisplay;
+        gameManager.GamePaused -= OnGamePaused;
+        gameManager.GameResumed -= OnGameResumed;
+        gameManager.LevelFailed -= OnLevelFailed;
+        gameManager.LevelWon -= OnLevelWin;
+    }
+
     public void ToggleRobot()
     {
         gameManager.ToggleRobot();

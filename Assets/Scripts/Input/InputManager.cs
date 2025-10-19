@@ -25,7 +25,7 @@ public class InputManager : MonoBehaviour
 
     #endregion
 
-    void OnEnable()
+    void Awake()
     {
         inputSystem = new();
         inputSystem.Enable();

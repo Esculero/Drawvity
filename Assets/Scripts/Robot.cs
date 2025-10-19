@@ -36,13 +36,20 @@ public class Robot : MonoBehaviour
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
-        gameManager.PauseRobotToggled += () =>
-        {
-            shouldMove = !shouldMove;
-            Debug.Log($"Robot movement toggled: {shouldMove}");
-        };
+        gameManager.PauseRobotToggled += OnPauseRobotToggled;
 
         gravityManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GravityManager>();
+    }
+
+    private void OnDestroy()
+    {
+        gameManager.PauseRobotToggled -= OnPauseRobotToggled;
+    }
+
+    void OnPauseRobotToggled()
+    {
+        shouldMove = !shouldMove;
+        Debug.Log($"Robot movement toggled: {shouldMove}");
     }
 
     // Update is called once per frame

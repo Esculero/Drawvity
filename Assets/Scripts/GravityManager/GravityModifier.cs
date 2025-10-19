@@ -1,10 +1,9 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using System;
 
 public class GravityModifier
 {
-    private GUID _GUID;
-    public GUID GUID { get => _GUID; }
+    private Guid _GUID;
+    public Guid GUID { get => _GUID; }
 
     private GravityModifierDelegate modifier;
     private ModifierMode modifierMode;
@@ -13,7 +12,7 @@ public class GravityModifier
 
     public GravityModifier(GravityModifierDelegate modifier, ModifierMode modifierMode)
     {
-        _GUID = GUID.Generate();
+        _GUID = Guid.NewGuid();
         this.modifier = modifier;
         this.modifierMode = modifierMode;
 
