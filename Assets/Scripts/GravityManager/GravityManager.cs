@@ -32,6 +32,8 @@ public class GravityManager : MonoBehaviour
             if(playerRigidbody == null)
             {
                 Debug.LogError("GravityManager: Player Rigidbody2D not assigned and Player tag not found.");
+                // disable this component - gravity manager shouldn't work in main menu, for example
+                this.enabled = false;
             }
         }
 
